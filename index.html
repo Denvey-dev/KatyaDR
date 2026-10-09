@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="ru" class="lock">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#06030d">
+    <title>Для зайки</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;600;900&family=Caveat:wght@600&family=Manrope:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <style>
+        :root {
+            --v: #8b5cff;
+            --p: #ff4f93;
+            --g: #ffcf6e;
+            --cr: #fff1e8;
+            --ink: #1d0a1c;
+            --d: #06030d;
+            box-sizing: border-box;
+            padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0)
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        html {
+            overflow-x: clip;
+            background: var(--d);
+            scroll-padding-top: env(safe-area-inset-top, 0)
+        }
+
+        html.lock,
+        html.lock body {
+            overflow: hidden;
+            height: 100%
+        }
+
+        body {
+            max-width: 100%;
+            overflow-x: clip;
+            font: 400 17px/1.5 Manrope, system-ui, sans-serif;
+            color: #f3edff;
+            overscroll-behavior-x: none
+        }
+
+        section {
+            position: relative;
+            max-width: 100%
+        }
+
+        .D,
+        h2,
+        h3 {
+            font-family: Unbounded, "Arial Black", sans-serif
+        }
+
+        h2 {
+            font-weight: 900;
+            font-size: clamp(26px, 6.6vw, 58px);
+            line-height: 1.05;
+            text-wrap: balance;
+            overflow-wrap: anywhere
+        }
+
+        .hand {
+            font: 600 clamp(22px, 5vw, 30px) Caveat, cursive
+        }
+
+        .w {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 0 clamp(18px, 5vw, 48px)
+        }
+
+        .c {
+            text-align: center
+        }
+
+        #gn {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            pointer-events: none;
+            opacity: .09;
+            mix-blend-mode: overlay;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+            animation: gn .5s steps(4) infinite
+        }
+
+        @keyframes gn {
+            25% {
+                transform: translate(-1%, 1%)
+            }
+
+            50% {
+                transform: translate(1%, -1%)
+            }
+
+            75% {
+                transform: translate(-1%, -1%)
+            }
+        }
+
+        #pb {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            transform-origin: left;
+            transform: scaleX(0);
+            background: linear-gradient(90deg, var(--v), var(--p));
+            z-index: 55
+        }
+
+        #mt {
+            position: fixed;
+            top: calc(12px + env(safe-area-inset-top, 0px));
+            right: 12px;
+            z-index: 55;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid #fff4;
+            background: #0007;
+            color: #fff;
+            font-size: 16px;
+            opacity: 0;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px)
+            
+        }
+
+        #mt.off {
+            opacity: .45
+        }
+
+        #cf {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 58
+        }
+
+        /* gate */
+        #gate {
+            position: fixed;
+            inset: 0;
+            z-index: 70;
+            background: #05030c;
+            overflow: clip;
+            transition: clip-path 1.4s cubic-bezier(.7, 0, .2, 1);
+            clip-path: circle(150% at 50% 50%)
+        }
+
+        #gate.go {
+            clip-path: circle(0% at 50% 50%)
+        }
+
+        .gr {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(#ffffff14 1px, #0000 1px) 0 0/44px 44px, linear-gradient(90deg, #ffffff14 1px, #0000 1px) 0 0/44px 44px;
+            -webkit-mask: radial-gradient(70% 60% at 50% 50%, #000, #0000);
+            mask: radial-gradient(70% 60% at 50% 50%, #000, #0000);
+            animation: dr 14s linear infinite
+        }
+
+        @keyframes dr {
+            to {
+                background-position: 44px 44px
+            }
+        }
+
+        .gt {
+            position: absolute;
+            top: calc(9svh + env(safe-area-inset-top, 0px));
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 0 7vw
+        }
+
+        .gt h1 {
+            font: 200 clamp(18px, 5.4vw, 30px)/1.25 Unbounded, sans-serif;
+            margin-top: 14px;
+            text-wrap: balance
+        }
+
+        .hp {
+            width: 68px;
+            animation: fl 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 16px #8b5cff)
+        }
+
+        @keyframes fl {
+            50% {
+                transform: translateY(-8px)
+            }
+        }
+
+        .rg {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: min(88vw, 540px);
+            height: min(88vw, 540px);
+            border: 1px solid #b794ff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: rg 3.6s cubic-bezier(.3, .6, .3, 1) infinite;
+            animation-delay: calc(var(--i)*.9s)
+        }
+
+        @keyframes rg {
+            0% {
+                transform: scale(1.4);
+                opacity: 0
+            }
+
+            25% {
+                opacity: .9
+            }
+
+            100% {
+                transform: scale(.1);
+                opacity: 0
+            }
+        }
+
+        #go {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 104px;
+            height: 104px;
+            border-radius: 50%;
+            border: 0;
+            color: #fff;
+            font: 600 13px Unbounded, sans-serif;
+            background: none;
+            animation: pl 1.8s ease-in-out infinite;
+            touch-action: manipulation
+        }
+
+        @keyframes pl {
+            50% {
+                transform: scale(1.09)
+            }
+        }
+
+        #gate.go #go {
+            transition: transform .6s, opacity .6s;
+            transform: scale(7);
+            opacity: 0;
+            animation: none
+        }
+
+        .gb {
+            position: absolute;
+            bottom: calc(8svh + env(safe-area-inset-bottom, 0px));
+            left: 0;
+            right: 0;
+            text-align: center;
+            font: 200 clamp(13px, 3.6vw, 17px) Unbounded, sans-serif;
+            opacity: .7;
+            padding: 0 8vw
+        }
+
+        /* intro */
+        #intro {
+            height: 100svh;
+            display: grid;
+            place-items: center;
+            overflow: clip;
+            background: radial-gradient(70% 50% at 50% 55%, #2a1065, #06030d 72%)
+        }
+
+        #intro .gr {
+            -webkit-mask: radial-gradient(75% 65% at 50% 50%, #000, #0000)
+        }
+
+        .hud {
+            position: absolute;
+            top: calc(18px + env(safe-area-inset-top, 0px));
+            left: 5vw;
+            font: 200 10px Unbounded, sans-serif;
+            letter-spacing: .3em;
+            opacity: 0;
+        }
+
+        .hud.r {
+            left: auto;
+            right: calc(5vw + 44px);
+            font-variant-numeric: tabular-nums
+        }
+
+        .st {
+            position: relative;
+            width: 100%;
+            padding: 0 5vw;
+            display: grid;
+            place-items: center;
+            min-height: 50svh
+        }
+
+        .k {
+            grid-area: 1/1;
+            position: relative;
+            text-align: center;
+            width: 100%
+        }
+
+        .k i {
+            font-style: normal
+        }
+
+        .k.sl .a{
+                margin-bottom: 10px;
+        }
+
+        .a {
+            font: 200 clamp(24px, 7.4vw, 70px)/1.1 Unbounded, sans-serif;
+            letter-spacing: -.02em;
+            text-shadow: 0 0 26px #b794ffcc
+        }
+
+        .b {
+            font: 900 clamp(32px, 11vw, 118px)/1.02 Unbounded, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -.03em;
+            color: #fff;
+            text-shadow: 0 0 36px #8b5cffee, 0 0 90px #8b5cff88
+        }
+
+        .k .a i {
+            display: inline-block;
+            opacity: 0;
+            animation: ch .01s forwards;
+            animation-delay: calc(var(--n)*48ms)
+        }
+
+        @keyframes ch {
+            to {
+                opacity: 1
+            }
+        }
+
+        .k .b i {
+            display: inline-block;
+            opacity: 0;
+            animation: sl .6s cubic-bezier(.2, 1.3, .3, 1) forwards;
+            animation-delay: calc(var(--n)*110ms + .22s)
+        }
+
+        @keyframes sl {
+            from {
+                opacity: 0;
+                transform: scale(2.3) translateY(24px);
+                filter: blur(22px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+                filter: blur(0)
+            }
+        }
+
+        .k.wp .b i {
+            opacity: 1;
+            animation: none
+        }
+
+        .k.wp .b {
+            animation: wp .8s cubic-bezier(.7, 0, .2, 1) .2s both
+        }
+
+        @keyframes wp {
+            from {
+                clip-path: inset(-20% 100% -20% 0)
+            }
+
+            to {
+                clip-path: inset(-20% -5% -20% 0)
+            }
+        }
+
+        .k.out {
+            animation: ou .34s ease-in forwards
+        }
+
+        @keyframes ou {
+            to {
+                opacity: 0;
+                transform: translateY(-26px) scale(1.05);
+                filter: blur(10px)
+            }
+        }
+
+        .sw {
+            position: absolute;
+            left: 4%;
+            right: 4%;
+            bottom: -16px;
+            height: 2px;
+            background: linear-gradient(90deg, #0000, #fff 70%, #a47bff);
+            box-shadow: 0 0 18px #8b5cff;
+            transform-origin: left;
+            animation: sp .9s cubic-bezier(.7, 0, .2, 1) both
+        }
+
+        @keyframes sp {
+            from {
+                transform: scaleX(0)
+            }
+        }
+
+        #orb {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 22px 8px #8b5cff, 0 0 70px 20px #8b5cff88;
+            transition-timing-function: linear;
+            pointer-events: none
+        }
+
+        #fo {
+            position: absolute;
+            inset: 0;
+            background: #fff;
+            opacity: 0;
+            pointer-events: none;
+            mix-blend-mode: overlay
+        }
+
+        .sc {
+            position: absolute;
+            bottom: calc(5svh + env(safe-area-inset-bottom, 0px));
+            left: 0;
+            right: 0;
+            display: grid;
+            justify-items: center;
+            gap: 8px;
+            font: 200 11px Unbounded, sans-serif;
+            letter-spacing: .35em;
+            opacity: 0;
+            transition: opacity 1s
+        }
+
+        .sc.on {
+            opacity: .8
+        }
+
+        .sc i {
+            width: 1px;
+            height: 46px;
+            background: linear-gradient(#fff, #0000);
+            animation: sd 1.6s ease-in-out infinite;
+            transform-origin: top
+        }
+
+        @keyframes sd {
+            0% {
+                transform: scaleY(0)
+            }
+
+            60% {
+                transform: scaleY(1)
+            }
+
+            100% {
+                transform: scaleY(1);
+                opacity: 0
+            }
+        }
+
+        /* marquee */
+        .mqw {
+            overflow: clip;
+            padding: 2svh 0;
+            position: relative;
+            z-index: 4;
+            background-color: none;
+            
+        }
+
+        .mq {
+            white-space: nowrap;
+            background: var(--g);
+            color: var(--ink);
+            padding: .45em 0;
+            font: 900 clamp(18px, 4.6vw, 38px) Unbounded, sans-serif;
+            transform: rotate(-2deg);
+            margin: 0 -5%
+        }
+
+        .mt {
+            display: inline-block;
+            animation: mq 26s linear infinite
+        }
+
+        @keyframes mq {
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        /* story */
+        .cr {
+            background: var(--cr);
+            color: var(--ink)
+        }
+
+        .rd {
+            border-radius: 44px 44px 0 0;
+            margin-top: -4svh;
+            z-index: 3;
+            padding: 16svh 0 8svh
+        }
+
+        .sb {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            margin: 13svh 0;
+            align-items: center
+        }
+
+        @media(min-width:800px) {
+            .sb {
+                grid-template-columns: 1fr 1fr;
+                gap: 70px
+            }
+
+            .sb:nth-child(even) .ph {
+                order: 2
+            }
+        }
+
+        .ph {
+            margin: 0;
+            aspect-ratio: 4/5;
+            max-width: 430px;
+            width: 100%;
+            /*overflow: hidden;*/
+            border-radius: 6px;
+            box-shadow: 0 30px 60px -24px #5a1a4aaa;
+            clip-path: inset(100% 0 0 0);
+            justify-self: center;
+            position: relative
+        }
+
+        .ph img {
+            width: 100%;
+            height: 116%;
+            object-fit: cover;
+            display: block
+        }
+
+        .tx h3 {
+            font-weight: 600;
+            font-size: clamp(21px, 5.4vw, 36px);
+            line-height: 1.2;
+            text-wrap: balance;
+            overflow-wrap: anywhere
+        }
+
+        .rv span {
+            opacity: .14
+        }
+
+        .tx p {
+            margin-top: 16px;
+            font-size: clamp(15px, 3.8vw, 18px);
+            max-width: 34ch;
+            opacity: .72
+        }
+
+        .bd {
+            position: absolute;
+            background: var(--g);
+            color: var(--ink);
+            font: 900 11px Unbounded, sans-serif;
+            padding: .6em .9em;
+            border-radius: 99px;
+            transform: rotate(var(--r, -6deg));
+            box-shadow: 0 8px 20px #0003;
+            animation: bob 3.4s ease-in-out infinite;
+            white-space: nowrap;
+            z-index: 5
+        }
+
+        @keyframes bob {
+            50% {
+                translate: 0 -7px
+            }
+        }
+
+        /* hamster sprite */
+        .hw {
+            position: relative;
+            display: inline-block;
+            transform: translateY(45%) scale(.6);
+            opacity: 0;
+            transition: transform .9s cubic-bezier(.2, 1.4, .3, 1), opacity .6s
+        }
+
+        .hw.vis {
+            transform: none;
+            opacity: 1
+        }
+
+        .hm {
+            display: block;
+            height: var(--h, 130px);
+            width: auto;
+            filter: drop-shadow(0 12px 14px #0005)
+        }
+
+        .bu {
+            position: absolute;
+            left: 62%;
+            top: -2%;
+            background: #fff;
+            color: var(--ink);
+            font: 600 12px/1.2 Manrope, sans-serif;
+            padding: .55em .85em;
+            border-radius: 14px 14px 14px 2px;
+            white-space: nowrap;
+            box-shadow: 0 8px 20px #0004;
+            transform: rotate(-4deg);
+            animation: bob 3s ease-in-out infinite;
+            font-style: normal
+        }
+
+        /* strip */
+        #strip {
+            background: radial-gradient(80% 60% at 50% 40%, #2b1068, #08040f 78%)
+        }
+
+        .stk {
+            position: sticky;
+            top: 0;
+            height: 100svh;
+            /*overflow: clip;*/
+            display: grid;
+            align-content: center;
+            gap: 4svh
+        }
+
+        .stt {
+            text-align: center;
+            padding: 0 6vw;
+            font: 900 clamp(22px, 6vw, 52px)/1.08 Unbounded, sans-serif;
+            text-wrap: balance
+        }
+
+        .stt .th {
+            font-weight: 200
+        }
+
+        .fs {
+            display: flex;
+            gap: 10px;
+            width: max-content;
+            padding: 24px 10px;
+            background: #0b0912;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 24px 50px #000a;
+            will-change: transform
+        }
+
+        .fs::before,
+        .fs::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 9px;
+            background: repeating-linear-gradient(90deg, #d9d0ff 0 9px, #0000 9px 20px)
+        }
+
+        .fs::before {
+            top: 7px
+        }
+
+        .fs::after {
+            bottom: 7px
+        }
+
+        .fm {
+            width: clamp(118px, 31vw, 190px);
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            border-radius: 2px;
+            position: relative;
+            flex: none
+        }
+
+        .fm img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(.35) contrast(1.05)
+        }
+
+        .fm:nth-child(3n) img {
+            filter: grayscale(1) contrast(1.15)
+        }
+
+        .fm b {
+            position: absolute;
+            bottom: 4px;
+            right: 7px;
+            font: 600 14px Caveat, cursive;
+            color: var(--g)
+        }
+
+        /* film */
+        #film {
+            background: #000
+        }
+
+        #fb {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            filter: blur(26px) brightness(.55) saturate(1.3);
+            transform: scale(1.2)
+        }
+
+        #fc {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%
+        }
+
+        .vg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(120% 90% at 50% 50%, #0000 50%, #000d)
+        }
+
+        .bar {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 8svh;
+            background: #000;
+            z-index: 2
+        }
+
+        .bar.t {
+            top: 0
+        }
+
+        .bar.b {
+            bottom: 0
+        }
+
+        #cps {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: end center;
+            padding: 0 6vw 13svh;
+            z-index: 3
+        }
+
+        #cps p {
+            grid-area: 1/1;
+            text-align: center;
+            font: 900 clamp(22px, 6.6vw, 60px)/1.06 Unbounded, sans-serif;
+            text-shadow: 0 4px 40px #000, 0 0 30px #ff7a2a99;
+            opacity: 0;
+            text-wrap: balance;
+            overflow-wrap: anywhere
+        }
+
+        #ld {
+            position: absolute;
+            top: calc(8svh + 18px);
+            left: 0;
+            right: 0;
+            text-align: center;
+            font: 200 11px Unbounded, sans-serif;
+            letter-spacing: .3em;
+            z-index: 4;
+            transition: opacity .6s
+        }
+
+        /* wrapped */
+        #fadeblk { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 2 }
+        #wr { position: relative; min-height: 100svh; padding: 12svh 0 14svh; display: grid; place-items: center; overflow: clip; background: linear-gradient(#000 0, #0a0418 22%, #120830 62%, #06030d 100%) }
+        .wg { position: absolute; left: 50%; top: 50%; width: 90vmin; height: 90vmin; margin: -45vmin 0 0 -45vmin; border-radius: 50%; background: var(--wc, #8b5cff); filter: blur(90px); opacity: .4; transition: background .9s; pointer-events: none }
+        .wp { --u: 4px; position: relative; width: min(calc(100vw - 24px), calc(84svh * .5625)); aspect-ratio: 9/16; border-radius: 26px; overflow: clip; background: #0b0716; box-shadow: 0 50px 120px -30px #000, 0 0 0 1px #ffffff1a; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: pointer; opacity: 0 }
+        .ws { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: space-between; gap: calc(var(--u) * 4); padding: calc(var(--u) * 13) calc(var(--u) * 7) calc(var(--u) * 8); background: var(--bg); color: var(--fg); overflow: clip }
+        .ws.on, .ws.pv { display: flex }
+        .ws.on { z-index: 2; animation: wrv .8s cubic-bezier(.7, 0, .2, 1) both }
+        .ws.pv { z-index: 1 }
+        @keyframes wrv { from { clip-path: circle(0% at 50% 100%) } to { clip-path: circle(150% at 50% 100%) } }
+        .ws>*:not(.wsh) { position: relative; z-index: 1 }
+        .wsh { position: absolute; border-radius: 50%; pointer-events: none }
+        .wsh.a { width: calc(var(--u) * 70); height: calc(var(--u) * 70); right: calc(var(--u) * -22); top: calc(var(--u) * 18); background: var(--a); animation: wf 9s ease-in-out infinite }
+        .wsh.b { width: calc(var(--u) * 34); height: calc(var(--u) * 34); left: calc(var(--u) * -12); bottom: calc(var(--u) * 30); border: calc(var(--u) * 3) solid var(--b); animation: wf 7s ease-in-out infinite reverse }
+        @keyframes wf { 50% { transform: translate(calc(var(--u) * -6), calc(var(--u) * 8)) scale(1.08) } }
+        .wk { font: 600 calc(var(--u) * 4.2) Manrope, sans-serif; letter-spacing: .02em }
+        .wm { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: calc(var(--u) * 3) }
+        .wb { font: 900 calc(var(--u) * 13)/1 Unbounded, sans-serif; text-transform: uppercase; letter-spacing: -.03em }
+        .wb span { display: block; white-space: nowrap }
+        .wn { font: 900 calc(var(--u) * 34)/.95 Unbounded, sans-serif; letter-spacing: -.05em; white-space: nowrap }
+        .wsub { font: 600 calc(var(--u) * 4.6)/1.3 Manrope, sans-serif; text-wrap: balance; max-width: 94% }
+        .wh { display: flex; justify-content: center }
+        .wl { list-style: none; padding: 0; display: grid; gap: calc(var(--u) * 5) }
+        .wl li { display: grid; grid-template-columns: auto 1fr auto; column-gap: calc(var(--u) * 3); row-gap: calc(var(--u) * 1.5); align-items: center; font: 600 calc(var(--u) * 4.4)/1.15 Unbounded, sans-serif }
+        .wl li b { grid-row: 1/3; font-size: calc(var(--u) * 9); font-weight: 900; min-width: 1.1em }
+        .wl li em { font-style: normal; font-weight: 900 }
+        .wl li s { grid-column: 2/4; height: calc(var(--u) * 1.8); background: currentColor; border-radius: 9px; transform-origin: left; width: calc(var(--p) * 1%) }
+        .ws.on .wk, .ws.on .wb span, .ws.on .wn, .ws.on .wl li, .ws.on .wsub, .ws.on .wcta { animation: wup .7s calc(.35s + var(--i, 0) * .13s) cubic-bezier(.2, 1.2, .3, 1) both }
+        .ws.on .wsub { --i: 3 }
+        @keyframes wup { from { opacity: 0; transform: translateY(calc(var(--u) * 9)) scale(.92) } }
+        .ws.on .wl s { animation: wbar 1s calc(.7s + var(--i, 0) * .13s) cubic-bezier(.2, .9, .2, 1) both }
+        @keyframes wbar { from { transform: scaleX(0) } }
+        #wbar { position: absolute; top: calc(var(--u) * 4); left: calc(var(--u) * 5); right: calc(var(--u) * 5); display: flex; gap: calc(var(--u) * 1.2); z-index: 5; opacity: 0; transition: opacity .4s; pointer-events: none }
+        #wbar.on { opacity: 1 }
+        #wbar i { flex: 1; height: max(3px, calc(var(--u) * .9)); background: color-mix(in srgb, var(--fg, #fff) 25%, transparent); border-radius: 9px; overflow: clip }
+        #wbar b { display: block; height: 100%; width: 0; background: var(--fg, #fff) }
+        #w0 { --bg: radial-gradient(120% 70% at 50% 100%, #3a1480, #0b0716 70%); --fg: #fff; --a: #8b5cff55; --b: #ff4f93 }
+        #w0t { font: 200 calc(var(--u) * 8.4)/1.15 Unbounded, sans-serif; min-height: 5.8em; text-wrap: balance }
+        #w0t::after { content: ""; display: inline-block; width: .08em; height: 1em; background: #fff; margin-left: .1em; vertical-align: -.12em; animation: cur 1s steps(2) infinite }
+        @keyframes cur { 50% { opacity: 0 } }
+        #wgo, .wcta { align-self: flex-start; border: 0; border-radius: 99px; background: #c8ff3d; color: #10200a; font: 900 calc(var(--u) * 4.4) Unbounded, sans-serif; padding: calc(var(--u) * 4) calc(var(--u) * 7); box-shadow: 0 0 40px #c8ff3d66; touch-action: manipulation; cursor: pointer }
+        .wcta { background: #fff; color: #1a0620; box-shadow: 0 10px 30px #0004 }
+        #wgo { opacity: 0; pointer-events: none; transform: translateY(12px); transition: .6s }
+        #wgo.on { opacity: 1; pointer-events: auto; transform: none; animation: pl 1.8s ease-in-out infinite }
+
+        /* end */
+        #end {
+            padding: 14svh 0 18svh;
+            text-align: center;
+            background: radial-gradient(70% 40% at 50% 30%, #2d1170, #06030d 75%);
+            overflow: clip
+        }
+
+        #end h2.t1 {
+            font-weight: 200
+        }
+
+        .tkw {
+            perspective: 900px;
+            margin: 7svh auto 0;
+            width: min(92vw, 560px)
+        }
+
+        .tk {
+            display: flex;
+            filter: drop-shadow(0 28px 34px #000a);
+            transition: transform .2s;
+            transform-style: preserve-3d
+        }
+
+        .tm,
+        .ts {
+            background: linear-gradient(120deg, #5a2fd6, #ff4f93);
+            color: #fff;
+            padding: 5% 6%;
+            text-align: left
+        }
+
+        .tm {
+            flex: 1;
+            border-radius: 16px 0 0 16px;
+            -webkit-mask: radial-gradient(circle 11px at 100% 0, #0000 97%, #000), radial-gradient(circle 11px at 100% 100%, #0000 97%, #000);
+            -webkit-mask-composite: source-in;
+            mask: radial-gradient(circle 11px at 100% 0, #0000 97%, #000), radial-gradient(circle 11px at 100% 100%, #0000 97%, #000);
+            mask-composite: intersect
+        }
+
+        .tm small {
+            font: 200 10px Unbounded, sans-serif;
+            letter-spacing: .3em
+        }
+
+        .tm h3 {
+            font-weight: 900;
+            font-size: clamp(34px, 10vw, 56px);
+            margin: 6px 0 12px
+        }
+
+        .mr {
+            display: flex;
+            gap: 18px;
+            font: 600 clamp(13px, 3.4vw, 16px) Unbounded, sans-serif
+        }
+
+        .mr s {
+            display: block;
+            text-decoration: none;
+            font: 200 9px Unbounded, sans-serif;
+            opacity: .75;
+            letter-spacing: .15em
+        }
+
+        .ts {
+            width: 27%;
+            border-radius: 0 16px 16px 0;
+            border-left: 3px dashed #fff9;
+            display: grid;
+            place-items: center;
+            font: 600 22px/1.1 Caveat, cursive;
+            cursor: grab;
+            touch-action: pan-y;
+            transform-origin: 0 100%;
+            animation: wg 2.2s ease-in-out infinite;
+            -webkit-mask: radial-gradient(circle 11px at 0 0, #0000 97%, #000), radial-gradient(circle 11px at 0 100%, #0000 97%, #000);
+            -webkit-mask-composite: source-in;
+            mask: radial-gradient(circle 11px at 0 0, #0000 97%, #000), radial-gradient(circle 11px at 0 100%, #0000 97%, #000);
+            mask-composite: intersect
+        }
+
+        @keyframes wg {
+            50% {
+                transform: translateX(7px) rotate(2deg)
+            }
+        }
+
+        .ts.gone {
+            animation: none;
+            transform: translate(70px, 320px) rotate(30deg) !important;
+            opacity: 0;
+            transition: transform 1.1s ease-in, opacity 1.1s
+        }
+
+        .rv2 {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity .9s .6s, transform .9s .6s;
+            pointer-events: none;
+            display: grid;
+            justify-items: center;
+            gap: 22px;
+            margin-top: 8svh;
+            padding: 0 5vw
+        }
+
+        .boom .rv2 {
+            opacity: 1;
+            transform: none;
+            pointer-events: auto
+        }
+
+        .big2 {
+            font-size: clamp(28px, 8vw, 72px);
+            text-shadow: 0 0 50px #ff4f93aa
+        }
+
+        .qc {
+            background: #fff;
+            padding: 14px 14px 10px;
+            border-radius: 18px;
+            color: var(--ink);
+            box-shadow: 0 30px 60px #000a;
+            transform: rotate(-2deg)
+        }
+
+        #qr {
+            width: min(64vw, 270px);
+            height: auto;
+        }
+
+        .qc .hand {
+            margin-top: 4px
+        }
+
+        .boom .tkw {
+            animation: shk .7s
+        }
+
+        @keyframes shk {
+            20% {
+                transform: translate(-8px, 4px)
+            }
+
+            40% {
+                transform: translate(7px, -5px)
+            }
+
+            60% {
+                transform: translate(-5px, 3px)
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            #gn,
+            .mt,
+            .bd,
+            .bu {
+                animation: none
+            }
+        }
+
+        /* мягкий переход: кремовый → тёмно-фиолетовый */
+        #story{padding-bottom:0}
+        #story::after{
+        content:"";display:block;height:34svh;margin-bottom:-1px;
+        background:linear-gradient(to bottom,
+            var(--cr) 0%,#f6d5e6 16%,#c08ede 42%,#4a2194 72%,#08040f 100%)
+        }
+        /* верх плёнки теперь ровно #08040f, а свечение живёт внутри экрана */
+        #strip{background:#08040f}
+        #strip .stk{background:radial-gradient(80% 60% at 50% 40%,#2b1068,#08040f 78%)}
+    
+        /* загрузка */
+        #gp { position: absolute; inset: 0; margin: auto; width: 104px; height: 104px; display: grid; place-items: center }
+        #gp svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg) }
+        #gp circle { fill: none; stroke: #ffffff22; stroke-width: 3 }
+        #gp #gpr { stroke: #b794ff; stroke-linecap: round; stroke-dasharray: 289; stroke-dashoffset: 289; filter: drop-shadow(0 0 8px #8b5cff) }
+        #gp b { font: 200 18px Unbounded, sans-serif }
+        #go { display: none }
+        #gate.rdy #go { display: block }
+        #gate.rdy #gp { display: none }
+        .gb { transition: opacity .35s }
+        .gb.fd { opacity: 0 }
+    </style>
+</head>
+
+<body>
+    <i id="gn"></i>
+    <div id="pb"></div><button id="mt" aria-label="Звук">♪</button><canvas id="cf"></canvas>
+    <div id="gate">
+        <div class="gr"></div>
+        <div class="gt"><svg class="hp" viewBox="0 0 64 64">
+                <path d="M10 40V32a22 22 0 0 1 44 0v8" fill="none" stroke="#fff" stroke-width="3.5"
+                    stroke-linecap="round" />
+                <rect x="6" y="38" width="12" height="18" rx="5" fill="#b794ff" />
+                <rect x="46" y="38" width="12" height="18" rx="5" fill="#b794ff" />
+            </svg>
+            <h1>Рекомендую включить наушники и сделать потише</h1>
+        </div>
+        <i class="rg" style="--i:0"></i><i class="rg" style="--i:1"></i><i class="rg" style="--i:2"></i><i class="rg"
+            style="--i:3"></i>
+        <div id="gp"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" /><circle id="gpr" cx="50" cy="50" r="46" /></svg><b id="gpn">0%</b></div>
+        <button id="go"></button>
+        <p class="gb" id="gb">Загружаю милоту…</p>
+    </div>
+    <main>
+        <section id="intro" data-s="intro">
+            <div class="gr"></div>
+            <div class="hud"></div>
+            <div class="hud r" id="tc">00:00.00</div>
+            <div class="st" id="st"></div><i id="orb"></i>
+            <div id="fo"></div>
+            <div class="sc" id="sc"><span>листай</span><i></i></div>
+        </section>
+        <div class="mqw">
+            <div class="mq">
+                <div class="mt"></div>
+            </div>
+        </div>
+        <section id="story" class="cr rd" data-s="story" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+            <div class="w">
+                <h2 class="c">Немного про тебя</h2>
+                <div id="sbs"></div>
+            </div>
+        </section>
+        <section id="strip" data-s="story" style="height:320svh">
+            <div class="stk">
+                <h2 style="    width: 100%;
+    padding-top: 7vh;
+    position: absolute;" class="stt"><span class="th">Плёнка</span> милоты</h2>
+                <div class="fs" id="f1"></div>
+                <div class="fs" id="f2"></div>
+            </div>
+        </section>
+        <section id="film" data-s="film" style="height:600svh">
+            <div class="stk"><canvas id="fb" width="64" height="36"></canvas><canvas id="fc"></canvas>
+                <div id="cps"></div>
+                <div id="ld">кино загружается…</div>
+                <div id="fadeblk"></div>
+            </div>
+        </section>
+        <section id="wr" data-s="wrapped">
+            <i class="wg" id="wg"></i>
+            <div class="wp" id="wp">
+                <div id="wbar"></div>
+                <div class="ws on" id="w0"><i class="wsh a"></i><i class="wsh b"></i>
+                    <div class="wk">Катя · 2026</div>
+                    <div class="wm">
+                        <p id="w0t"></p>
+                    </div><button id="wgo">Начать</button>
+                </div>
+            </div>
+        </section>
+        <section id="end" data-s="end">
+            <div class="w c">
+                <h2 class="t1">Остался последний штрих</h2>
+                <div class="tkw" id="tkw">
+                    <div class="tk" id="tk">
+                        <div class="tm"><small>ТАЛОН НА ОДИН ПОДАРОК</small>
+                            <h3 class="D">???</h3>
+                            <div class="mr">
+                                <span><s>РЕЙС</s>HB-26</span><span><s>ГЕЙТ</s>∞</span><span><s>МЕСТО</s>рядом</span>
+                            </div>
+                        </div>
+                        <div class="ts" id="ts"><span>оторви<br>→</span></div>
+                    </div>
+                </div>
+                <div class="rv2">
+                    <div id="hf"></div>
+                    <div class="qc"><canvas id="qr" width="560" height="560"></canvas>
+                        <p class="hand">Ты вроде сказала, что ведьмак у тебя в любимых</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        /* ===== НАСТРОЙКИ ===== */
+        const SITE_URL = 'https://drive.google.com/file/d/1jd0Hm3y0enOIoOl8PyRTDMH-v6b8xpZ2/view?usp=sharing'; /* ссылка в QR */
+        const MUSIC = { intro: 'audio/intro.mp3', story: 'audio/story.mp3', film: 'audio/film.mp3', wrapped: 'audio/wrapped.mp3', end: 'audio/end.mp3' }; /* положи файлы в папку audio/ — всё подхватится само */
+        const PHOTOS = ["assets/p0.webp", "assets/p1.webp", "assets/p2.webp", "assets/p3.webp", "assets/p4.webp", "assets/p5.webp", "assets/p6.webp"]; /* свои фото: положи в assets/ и впиши пути */
+        const PACK = { frames: { src: 'assets/frames.bin', off: [0, 11516, 22194, 32912, 43680, 54142, 63856, 73758, 85176, 96974, 108702, 120980, 133306, 146110, 158912, 171428, 184272, 190278, 196220, 201652, 207108, 212498, 218296, 223984, 229672, 235754, 241924, 247244, 252710, 258002, 263688, 269102, 274270, 279428, 284712, 290066, 297592, 305076, 312572, 319860, 327156, 334058, 341504, 348952, 357380, 366028, 374784, 383764, 392692, 401684, 410700, 419796, 429264, 438596, 447866, 457238, 466402, 475646, 484730, 494094, 503560, 513142, 522758, 532238, 541980, 551806, 561460, 571390, 581144, 591098, 601338, 611336, 621588, 631820, 642104, 652484, 662886, 673338, 683632, 694182, 704956, 715702, 726572, 737366, 748188, 759056, 769796, 780828, 791626, 802610, 813612, 824610, 835428, 846142, 856780, 867432, 877268, 886836, 895484, 903532, 911680, 918860, 925536, 931686, 937608, 943538, 949010, 954720, 960142, 965640, 971138, 976110, 980926, 985576, 990222, 994762, 999176, 1003618, 1008106, 1012632, 1017226, 1021770, 1026408, 1031034, 1035674, 1040370, 1045120, 1050082, 1055004, 1059988, 1064972, 1069912, 1074938, 1079832, 1084750, 1089778, 1094750, 1099658, 1104558, 1109516, 1114464, 1119420, 1124440, 1129372, 1134352, 1139428, 1144472, 1149526, 1156806, 1164022, 1170824, 1177692, 1184220, 1191014, 1198074, 1205092, 1212328, 1219288, 1226588, 1234100, 1241252, 1248546, 1255684, 1262926, 1270464, 1277826, 1285408, 1292826, 1300546, 1308426, 1316078, 1324040, 1331738, 1339468, 1347370, 1355118, 1362966, 1370802, 1378634, 1386658, 1394352, 1402216, 1409994, 1417962, 1426016, 1433928, 1441960, 1449868, 1457830, 1465940, 1473586, 1481252, 1488526, 1495728, 1503048, 1510286, 1517910, 1525480, 1533038, 1540688, 1547726, 1554808, 1561594, 1568420, 1575592, 1582772, 1590102, 1597172, 1604014, 1611152] }, ham: { src: 'assets/ham.bin', off: [0, 7276, 14602, 21878, 29300, 36640, 44064, 51386, 58790, 66038, 73240, 80192, 87294, 94444, 101770, 109310, 116692, 124194, 131742, 139186, 146562, 153844, 161012, 168164, 175398, 182756, 190252, 197452, 205270, 213200, 220906, 229280, 238158, 247288, 256210, 265042, 273734, 281820, 289652, 296994, 304394, 311904, 319422, 327090, 333900, 340526, 347080, 354598, 362494, 370672, 378762, 387436, 395672, 402618, 409184, 416658, 423728, 430862, 437438, 444412, 451990, 459664, 466476, 473440, 480624, 487084, 493374, 499788, 506988, 514318, 521222, 528472, 535626, 544458, 552336, 559010, 565102, 571850, 579404, 586016, 593020, 600316, 607550, 614250, 621290, 629274, 637704, 644598, 651378, 658966, 666306, 673652, 681778, 690884, 698346, 705846, 713648, 721618, 729158, 736720, 744092, 752134, 760006, 767526, 773920, 779954, 787052, 794504, 801574, 807658, 814962, 822428, 829822, 836806, 845834, 854964, 863776, 871888, 879782, 887594, 895114, 902568, 910392, 918102, 925634, 933200, 941054, 949868, 959292, 969718] } };
+        /* ===================== */
+        const $ = (s, e = document) => e.querySelector(s), $$ = (s, e = document) => [...e.querySelectorAll(s)], cl = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), ez = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2, sleep = m => new Promise(r => setTimeout(r, m));
+        const mqt = 'С ДНЁМ РОЖДЕНИЯ ✦ '.repeat(10); $$('.mt').forEach(e => e.textContent = mqt);
+        /* audio: каждый трек стартует с начала при входе в свою сцену */
+        let AC = null, MG, BUF = {}, CUR = {}, scene = 'intro', on = 1, started = 0, endOn = 0, FRD = 0;
+        try { AC = new (window.AudioContext || window.webkitAudioContext)(); MG = AC.createGain(); MG.gain.value = .85; MG.connect(AC.destination) } catch (e) { AC = null }
+        function loadTrack(k) { if (!AC || BUF[k]) return Promise.resolve(); return fetch(MUSIC[k]).then(r => { if (!r.ok) throw 0; return r.arrayBuffer() }).then(b => new Promise((ok, no) => AC.decodeAudioData(b, ok, no))).then(buf => { BUF[k] = buf; mix() }).catch(() => { }) }
+        function playTrack(k) { if (!BUF[k] || CUR[k]) return; const s = AC.createBufferSource(), g = AC.createGain(); s.buffer = BUF[k]; s.loop = true; g.gain.value = 0; s.connect(g); g.connect(MG); s.start(); g.gain.setTargetAtTime(1, AC.currentTime, .5); CUR[k] = { s, g } }
+        function stopTrack(k) { const c = CUR[k]; if (!c) return; delete CUR[k]; c.g.gain.setTargetAtTime(0, AC.currentTime, .4); setTimeout(() => { try { c.s.stop() } catch (e) { } }, 2800) }
+        function mix() { if (!AC || !started) return; for (const k in MUSIC) (k === scene && (k !== 'end' || endOn)) ? playTrack(k) : stopTrack(k) }
+        $('#mt').onclick = () => { on = !on; $('#mt').classList.toggle('off', !on); if (MG) MG.gain.setTargetAtTime(on ? .85 : 0, AC.currentTime, .2) };
+        /* упаковки кадров: один файл вместо сотен */
+        function loadPack(n) { const p = PACK[n]; return fetch(p.src).then(r => r.arrayBuffer()).then(buf => p.off.slice(0, -1).map((o, i) => URL.createObjectURL(new Blob([buf.slice(o, p.off[i + 1])], { type: 'image/webp' })))) }
+        function loadHam() { return loadPack('ham').then(us => Promise.all(us.map(u => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = u })))).then(a => { HI.push(...a); HS.forEach(sz) }).catch(() => { }) }
+        function loadFilm() { return loadPack('frames').then(us => { us.forEach((u, i) => FI[i].src = u); FRD = 1 }).catch(() => { }) }
+        async function loadRest() { loadHam().then(loadFilm); for (const k of ['story', 'film', 'wrapped', 'end']) await loadTrack(k) }
+        /* экран загрузки: грузим только то, без чего нельзя начать (шрифты + музыка интро) */
+        const LC = ['Загружаю милоту…', 'Проверяю, не слишком ли ты прекрасна…', 'Подбираю поздравления посмешнее…', 'Пу-пу-пу', 'Как дела?', 'Выбираю конфетти покрасивее…', 'Ты кто такой? - Игорь', 'Танцуют звезды и луна', 'Считаю, сколько раз ты скажешь «я не злюсь»…', 'Заворачиваю подарок в четыре слоя бумаги…'];
+        (function () {
+            const gate = $('#gate'), gb = $('#gb'), ring = $('#gpr'), num = $('#gpn'), t0 = performance.now(), part = {}; let tgt = 0, shown = 0, ci = 0, rdy = 0;
+            const set = (k, v) => { part[k] = v; tgt = (part.f || 0) * .25 + (part.a || 0) * .65 + (part.m || 0) * .1 };
+            const cyc = setInterval(() => { if (rdy) return; gb.classList.add('fd'); setTimeout(() => { if (rdy) return; gb.textContent = LC[++ci % LC.length]; gb.classList.remove('fd') }, 350) }, 2400);
+            Promise.race([Promise.all(['200 20px Unbounded', '900 20px Unbounded', '600 20px Unbounded', '600 20px Manrope', '600 20px Caveat'].map(f => document.fonts.load(f, 'Аа'))), new Promise(r => setTimeout(r, 6000))]).then(() => set('f', 1));
+            Promise.race([loadTrack('intro'), new Promise(r => setTimeout(r, 12000))]).then(() => set('a', 1));
+            if (document.readyState === 'complete') set('m', 1); else addEventListener('load', () => set('m', 1));
+            (function f() { shown += (tgt - shown) * .06; ring.style.strokeDashoffset = 289 * (1 - shown); num.textContent = Math.round(shown * 100) + '%'; if (tgt >= .999 && shown > .985 && performance.now() - t0 > 2200) { rdy = 1; clearInterval(cyc); gate.classList.add('rdy'); gb.textContent = 'Как будешь готова - тыкни в центр экрана'; gb.classList.remove('fd'); return } requestAnimationFrame(f) })();
+        })();
+        /* hamster sprites */
+        const HI = [], HS = []; let HT = 0;
+        /* кадры хомяка грузятся после нажатия: loadHam() */
+        function sz(c) { if (HI[0]) { c.width = HI[0].naturalWidth; c.height = HI[0].naturalHeight } }
+        const io = new IntersectionObserver(es => es.forEach(e => { e.target.classList.toggle('vis', e.isIntersecting); const c = $('canvas', e.target); if (c) c.v = e.isIntersecting }), { threshold: .2 });
+        function ham(par, txt, h) { const w = document.createElement('div'); w.className = 'hw'; w.innerHTML = `<canvas class="hm" style="--h:${h || 130}px"></canvas>${txt ? `<i class="bu">${txt}</i>` : ''}`; par.append(w); const c = $('canvas', w); sz(c); HS.push(c); io.observe(w); return c }
+        function bd(par, t, css, r) { const b = document.createElement('i'); b.className = 'bd'; b.textContent = t; b.style.cssText = css + `;--r:${r || -6}deg`; par.append(b) }
+        /* intro */
+        const st = $('#st'), orb = $('#orb'); let T0 = 0;
+        function fit(k) { $$('.a,.b', k).forEach(e => { e.style.fontSize = ''; const fs = parseFloat(getComputedStyle(e).fontSize), w = k.parentNode.clientWidth * .94; if (e.scrollWidth > w) e.style.fontSize = fs * w / e.scrollWidth + 'px' }) }
+        function show(fx, a, b, c) {
+            const o = $('.k', st); if (o) { o.classList.add('out'); setTimeout(() => o.remove(), 360) }
+            const k = document.createElement('div'); k.className = 'k ' + fx; let n = 0;
+            k.innerHTML = (a ? `<div class=a>${[...a].map(ch => `<i style="--n:${n++}">${ch == ' ' ? '&nbsp;' : ch}</i>`).join('')}</div>` : '') + (b ? `<div class="b ${c || ''}">${b.split(' ').map((w, j) => `<i style="--n:${j}">${w}</i>`).join(' ')}</div>` : '') + '<u class=sw></u>';
+            st.append(k); fit(k);
+            if (fx == 'fl' || fx == 'sl' && !a) $('#fo').animate([{ opacity: .85 }, { opacity: 0 }], { duration: 420 });
+            const L = $('.a', k) || $('.b', k), r = L.getBoundingClientRect(), s = $('#intro').getBoundingClientRect();
+            orb.style.transition = 'none'; orb.style.transform = `translate(${r.left - s.left - 20}px,${r.top - s.top + r.height / 2}px)`; orb.offsetWidth; orb.style.transition = `transform ${Math.max(400, n * 48)}ms linear`; orb.style.transform = `translate(${r.right - s.left + 8}px,${r.top - s.top + r.height / 2}px)`
+        }
+        const BT = [
+        [1000, 'ty', 'Привет'],
+        [700, 'sl', 'ты уехала(', ''],
+        [700, 'sl', 'а я', ''],
+        [2500, 'sl', '', 'СКУЧАУ'],
+        [1000, 'sl', '', 'И РЕШИЛ'],
+        [800, 'sl', 'ПОЗДРАВИТЬ', ''],
+        [1800, 'sl', 'вот', 'ТАК'],
+        [900, 'fl', 'давай там,', ''],
+        [1300, 'sl', 'как', 'ГОВОРИТСЯ'],
+        [1000, 'sl', '', 'ЛЮБВИ'],
+        [680, 'fl', '', 'УДАЧИ'],
+        [480, 'fl', '', 'БАБЛА'],
+        [480, 'fl', '', 'ИНТИМА'],
+        [1000, 'sl', 'и оставайся', 'ВСЕГДА'],
+        [480, 'fl', '', 'КРАСИВА'],
+        [480, 'fl', '', 'СЧАСТЛИВА'],
+        [480, 'fl', '', 'ИГРИВА'],
+        [480, 'fl', '', 'БОЛТЛИВА'],
+        [480, 'fl', '', 'ЛЮБИМА'],
+        [1080, 'fl', 'и', ''],
+        [1500, 'fl', 'почеши спинку', 'ПОЖЛУЙСТА'],
+        [1080, 'sl', 'а', 'ТАКЖЕ'],
+        [0, 'sl', 'Зай,', 'С ДНЁМ РОЖДЕНИЯ!']];
+        async function intro() { T0 = performance.now(); await document.fonts.ready; await sleep(500); for (const [d, fx, a, b] of BT) { show(fx, a, b); await sleep(d || 2500) } $('#sc').classList.add('on') }
+        /* gate */
+        $('#go').onclick = () => { $('#gate').classList.add('go'); if (AC) AC.resume(); started = 1; mix(); document.documentElement.classList.remove('lock'); setTimeout(() => $('#gate').remove(), 1500); intro(); setTimeout(loadRest, 600) };
+        /* story */
+        const SG = [['Ты заходишь в комнату - и там становится светлее', 'Научного объяснения нет, но мы это зафиксировали'], ['У тебя смех, ради которого стоит рассказывать плохие шутки', 'Я проверял. Шутки были плохие. Сработало.'], ['Ты умеешь спать так, будто это олимпийская дисциплина', 'И, судя по результатам, у тебя уже золотая медаль']];
+        SG.forEach(([h, p], i) => {
+            const a = document.createElement('article'); a.className = 'sb'; a.innerHTML = `<figure class=ph><img src="${PHOTOS[i % PHOTOS.length]}" alt=""></figure><div class=tx><h3 class=rv>${h}</h3><p>${p}</p></div>`; $('#sbs').append(a);
+            if (i == 0) bd(a, 'ЭТО БУЛКА', 'top:40px;right:4%', 5); if (i == 2) bd(a, 'ЯВНО ВАЖНАЯ ИНФА БЫЛА', 'bottom: 200px;left:6%', -4)
+        });
+        $$('.rv').forEach(e => e.innerHTML = e.textContent.split(' ').map(w => `<span>${w}</span>`).join(' '));
+        /* strip */
+        ['f1', 'f2'].forEach((id, j) => { const f = $('#' + id); for (let i = 0; i < 10; i++) { const d = document.createElement('div'); d.className = 'fm'; d.innerHTML = `<img src="${PHOTOS[(i * 3 + j * 2) % PHOTOS.length]}" alt=""><b>${String(i + 1 + j * 10).padStart(2, '0')}A</b>`; f.append(d) } });
+        /* film */
+
+        const FI = Array.from({ length: PACK.frames.off.length - 1 }, () => new Image()),
+            fc = $('#fc'),
+            fx = fc.getContext('2d'),
+            fb = $('#fb').getContext('2d');
+        let fl = -1, pf = 0, fr = 0;
+
+        const CP = [
+            [.02, .22, 'Также тут у нас видео'],
+            [.25, .46, 'Как я тебя вижу со стороны'],
+            [.49, .72, 'Маленькая, пушистая, слегка неуравновешенная'],
+            [.76, 1.01, 'Моя любимая катастрофа в очень милой упаковке']
+        ];
+        CP.forEach(c => {
+            const p = document.createElement('p');
+            p.textContent = c[2];
+            $('#cps').append(p);
+        });
+
+        function fsz() {
+            const d = Math.min(devicePixelRatio || 1, 2);
+            fc.width = fc.clientWidth * d;
+            fc.height = fc.clientHeight * d;
+            fl = -1; // форсируем перерисовку
+        }
+
+        function drawF(i) {
+            const im = FI[i];
+            if (!im || !im.naturalWidth) return;
+
+            const W = fc.width, H = fc.height,
+                iw = im.naturalWidth, ih = im.naturalHeight;
+
+            // Масштаб "cover" — заполняет весь канвас (для размытого фона)
+            const sCover = Math.max(W / iw, H / ih);
+            // Масштаб "contain" — вписывает кадр целиком, максимально крупно (для резкого слоя)
+            const sContain = Math.min(W / iw, H / ih);
+
+
+            
+
+
+            // --- 3. Резкий кадр поверх (contain, по центру) ---
+            fx.drawImage(
+                im,
+                (W - iw * sContain) / 2,
+                (H - ih * sContain) / 2,
+                iw * sContain, ih * sContain
+            );
+
+            // --- 4. Миниатюра 64×36 (cover) ---
+            const s2 = Math.max(64 / iw, 36 / ih);
+            fb.drawImage(
+                im,
+                (64 - iw * s2) / 2,
+                (36 - ih * s2) / 2,
+                iw * s2, ih * s2
+            );
+        }
+        /* wrapped: все тексты и цифры тут — правь как хочешь */
+        const WRAP = [
+            { bg: '#ff5fa2', fg: '#1a0620', a: '#c8ff3d', b: '#1a0620', k: 'твой год, без цензуры', t: ['КАТЯ', 'РАСПАКОВКА', '2026'], sub: '' },
+            { bg: '#c8ff3d', fg: '#10200a', a: '#ff5fa2', b: '#10200a', k: 'ты была лучшей в', n: 97, u: '%', sub: 'случаев. Оставшиеся 3% - когда ты была голодная' },
+            { bg: '#3d4bff', fg: '#ffffff', a: '#ff7a2a', b: '#c8ff3d', k: 'твои топ-3 фразы года', list: [['«Люблю»', '234×', 100], ['«Забери меня»', '146×', 60], ['«Ладно»', '94×', 40]], sub: ' ' },
+            { bg: '#ff7a2a', fg: '#1c0b00', a: '#ffe14a', b: '#1c0b00', k: 'ты сказала', n: 204, u: '×', t: ['«ВЫХОЖУ»'], sub: 'Вышла вовремя: 3 раза. Это тоже рекорд' },
+            { bg: '#8b5cff', fg: '#ffffff', a: '#ff4f93', b: '#ffe14a', k: 'главный мем года', ham: 0, t: ['Игорь'], sub: 'Победитель очевиден' },
+            { bg: '#17120a', fg: '#ffe9a8', a: '#ffb30055', b: '#ffe9a8', k: 'достижения разблокированы', list: [['Забыла таблетки. Серия: 37 дней', '+100 XP', 0, '★'], ['Выжила после дежурства на одном кофе', '+250 XP', 0, '★'], ['Улыбнулась в трубку так, что я услышал', '+999 XP', 0, '★']], sub: 'Редкость: 0,1% людей Ты в этом проценте' },
+            { bg: '#ffd24a', fg: '#241800', a: '#ff4f93', b: '#241800', k: 'для меня ты', n: 1, u: ' из 8 млрд', t: ['САМАЯ', 'ВАЖНАЯ'], sub: 'Точный факт, проверил всех' },
+            { bg: 'linear-gradient(160deg,#ff4f93,#8b5cff)', wc: '#ff4f93', fg: '#ffffff', a: '#ffd24a', b: '#ffffff', k: 'и последнее', t: ['С ДНЁМ', 'РОЖДЕНИЯ,', 'КОКЕТКА'], sub: 'Твоя распаковка закончилась Но это ещё не всё', cta: 'Дальше ↓', last: 1 }
+        ];
+        const WR = $('#wr'), WPL = $('#wp'), WBAR = $('#wbar'), WS = [], WD = 5600, W0 = 'Были собраны твои достижения за год:';
+        let wcur = $('#w0'), wi = -1, wel = 0, wph = 0, wlt = 0, wdn = null;
+        function wu() { WPL.style.setProperty('--u', WPL.offsetWidth / 100 + 'px') } wu(); addEventListener('resize', wu);
+        WRAP.forEach(s => {
+            const e = document.createElement('div'); e.className = 'ws'; e.style.cssText = `--bg:${s.bg};--fg:${s.fg};--a:${s.a};--b:${s.b}`;
+            e.innerHTML = `<i class="wsh a"></i><i class="wsh b"></i><div class="wk">${s.k}</div><div class="wm">${s.n != null ? `<div class="wn" data-n="${s.n}" data-u="${s.u || ''}">0</div>` : ''}${s.ham ? '<div class="wh"></div>' : ''}${s.t ? `<h2 class="wb">${s.t.map((x, j) => `<span style="--i:${j}">${x}</span>`).join('')}</h2>` : ''}${s.list ? `<ul class="wl">${s.list.map((r, j) => `<li style="--i:${j}"><b>${r[3] || j + 1}</b><span>${r[0]}</span><em>${r[1]}</em>${r[2] ? `<s style="--p:${r[2]}"></s>` : ''}</li>`).join('')}</ul>` : ''}</div><p class="wsub">${s.sub}</p>${s.cta ? `<button class="wcta">${s.cta}</button>` : ''}`;
+            WPL.append(e); WS.push(e); const bi = document.createElement('i'); bi.innerHTML = '<b></b>'; WBAR.append(bi);
+            if (s.ham) ham($('.wh', e), 'ха-ха-ха', 150)
+        });
+        function wfit(e) { e.style.fontSize = ''; if (e.dataset.n) e.textContent = e.dataset.n + (e.dataset.u || ''); const fs = parseFloat(getComputedStyle(e).fontSize), w = WPL.offsetWidth * .86, sw = e.scrollWidth; if (sw > w) e.style.fontSize = fs * w / sw + 'px' }
+        function cnt(e, n, u) { const t0 = performance.now(); (function f(t) { const k = Math.min(1, (t - t0) / 1100); e.textContent = Math.round(n * (1 - (1 - k) ** 3)) + (u || ''); if (k < 1) requestAnimationFrame(f) })(t0) }
+        function pop() { if (!AC || !on) return; const t = AC.currentTime, o = AC.createOscillator(), g = AC.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(420, t); o.frequency.exponentialRampToValueAtTime(880, t + .12); g.gain.setValueAtTime(.12, t); g.gain.exponentialRampToValueAtTime(.001, t + .2); o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + .22) }
+        function go(i) {
+            const n = WS[i], o = wcur; if (!n || n === o) return; o.classList.add('pv'); o.classList.remove('on'); n.classList.remove('pv'); n.classList.add('on'); wcur = n; setTimeout(() => o.classList.remove('pv'), 850);
+            wi = i; wel = 0; const s = WRAP[i]; WBAR.classList.add('on'); WBAR.style.setProperty('--fg', s.fg); $('#wg').style.setProperty('--wc', s.wc || s.bg);
+            [...WBAR.children].forEach((b, j) => b.firstChild.style.width = j < i ? '100%' : '0');
+            requestAnimationFrame(() => { $$('.wb span,.wn', n).forEach(wfit); $$('[data-n]', n).forEach(e => cnt(e, +e.dataset.n, e.dataset.u)) });
+            pop(); if (s.last) { boom(90, innerWidth / 2, innerHeight * .6, 60, 120, 16) }
+        }
+        const wnext = () => { if (wi < WRAP.length - 1) go(wi + 1) }, wprev = () => { if (wi > 0) go(wi - 1) };
+        WPL.addEventListener('pointerdown', e => { wdn = { x: e.clientX, y: e.clientY, t: performance.now() }; wph = 1 });
+        WPL.addEventListener('pointercancel', () => { wph = 0; wdn = null });
+        WPL.addEventListener('pointerup', e => {
+            wph = 0; if (!wdn || wi < 0) { wdn = null; return } const dx = e.clientX - wdn.x, dy = e.clientY - wdn.y, dt = performance.now() - wdn.t; wdn = null; if (e.target.closest('button')) return;
+            if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? wnext() : wprev() } else if (Math.abs(dx) < 10 && Math.abs(dy) < 10 && dt < 250) { (e.clientX - WPL.getBoundingClientRect().left) < WPL.offsetWidth * .33 ? wprev() : wnext() }
+        });
+        WPL.addEventListener('click', e => { if (e.target.closest('.wcta')) $('#end').scrollIntoView({ behavior: 'smooth' }) });
+        $('#wgo').onclick = () => go(0);
+        let wtyped = 0; new IntersectionObserver(es => {
+            if (es[0].isIntersecting && !wtyped) { wtyped = 1; let k = 0; const el = $('#w0t'), iv = setInterval(() => { el.textContent = W0.slice(0, ++k); if (k >= W0.length) { clearInterval(iv); setTimeout(() => $('#wgo').classList.add('on'), 500) } }, 55) }
+        }, { threshold: .6 }).observe(WPL);
+        function wrapLoop(t, vh) {
+            const dt = Math.min(60, t - wlt); wlt = t;
+            if (wi >= 0 && !wph) { const r = WR.getBoundingClientRect(); if (r.bottom > 0 && r.top < vh) { wel += dt; const b = WBAR.children[wi]; if (b) b.firstChild.style.width = Math.min(100, wel / WD * 100) + '%'; if (wel >= WD) wnext() } }
+            const r = WPL.getBoundingClientRect(), p = ez(cl((vh * .97 - r.top) / (vh * .5))); WPL.style.transform = `translateY(${(1 - p) * 70}px) scale(${.9 + .1 * p})`; WPL.style.opacity = p
+        }
+        /* ticket */
+        const ts = $('#ts'); let td = 0, tx = 0, torn = 0, dd = 0;
+        $('#tkw').addEventListener('pointermove', e => { if (torn) return; const r = $('#tk').getBoundingClientRect(); $('#tk').style.transform = `rotateY(${((e.clientX - r.left) / r.width - .5) * 18}deg) rotateX(${-((e.clientY - r.top) / r.height - .5) * 18}deg)` });
+        ts.addEventListener('pointerdown', e => { td = 1; tx = e.clientX; dd = 0; ts.style.animation = 'none'; ts.setPointerCapture(e.pointerId) });
+        ts.addEventListener('pointermove', e => { if (!td || torn) return; dd = cl(e.clientX - tx, 0, 170); ts.style.transform = `translateX(${dd}px) rotate(${dd / 10}deg)` });
+        ts.addEventListener('pointerup', () => { td = 0; if (torn) return; if (dd > 60 || dd < 6) tear(); else { ts.style.transform = ''; ts.style.animation = '' } });
+        const cf = $('#cf'), cx = cf.getContext('2d'), COL = ['#ff4f93', '#8b5cff', '#ffcf6e', '#4cc9f0', '#fff', '#ff7a2a']; let PS = [];
+        function csz() { cf.width = innerWidth; cf.height = innerHeight } csz();
+        function boom(n, x, y, a0, a1, sp, t) { for (let i = 0; i < n; i++) { const a = (a0 + Math.random() * (a1 - a0)) * Math.PI / 180, s = sp * (.45 + Math.random()); PS.push({ x, y, vx: Math.cos(a) * s, vy: -Math.sin(a) * s, r: Math.random() * 6, vr: (Math.random() - .5) * .4, w: 6 + Math.random() * 9, c: COL[Math.random() * 6 | 0], t: t != null ? t : Math.random() * 3 | 0 }) } }
+        function cfl() { cx.clearRect(0, 0, cf.width, cf.height); PS = PS.filter(p => p.y < cf.height + 40); PS.forEach(p => { p.vy += .3; p.vx *= .99; p.vy *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c; if (p.t == 0) cx.fillRect(-p.w / 2, -p.w / 4, p.w, p.w / 2); else if (p.t == 1) { cx.beginPath(); cx.arc(0, 0, p.w / 3, 0, 7); cx.fill() } else { cx.font = p.w * 1.7 + 'px serif'; cx.fillText('♥', -p.w / 2, 0) } cx.restore() }) }
+        function tear() {
+            if (torn) return; torn = 1; ts.classList.add('gone'); $('#end').classList.add('boom'); const W = cf.width, H = cf.height;
+            for (let i = 0; i < 6; i++)setTimeout(() => { boom(60, 0, H, 50, 85, 24); boom(60, W, H, 95, 130, 24); if (i % 2) boom(30, W / 2, H * .6, 60, 120, 18, 2) }, i * 380);
+            
+            endOn = 1; mix(); const hh = ham($('#hf'), '', Math.min(270, innerWidth * .62)); hh.v = true; $('#hf .hw').classList.add('vis');
+        }
+        function qr() {
+            const c = $('#qr'), g = c.getContext('2d'); let m = null; try { m = qrcode(0, 'M'); m.addData(SITE_URL); m.make() } catch (e) { }
+            const n = m ? m.getModuleCount() : 29, q = 2, S = c.width, k = S / (n + q * 2); g.fillStyle = '#fff'; g.fillRect(0, 0, S, S); g.fillStyle = '#12071f'; for (let r = 0; r < n; r++)for (let i = 0; i < n; i++)if (m ? m.isDark(r, i) : (r * 7 + i * 13) % 5 < 2) g.fillRect(Math.round((i + q) * k), Math.round((r + q) * k), Math.ceil(k), Math.ceil(k))
+        }
+        addEventListener('load', qr);
+        /* main loop */
+        let py = 0, vs = 0; const SEC = $$('[data-s]'), pr = e => cl(-e.getBoundingClientRect().top / (e.offsetHeight - e.firstElementChild.offsetHeight));
+        function loop(t) {
+            const vh = innerHeight, y = scrollY, H = document.documentElement.scrollHeight - vh;
+            $('#pb').style.transform = `scaleX(${H > 0 ? y / H : 0})`;
+            if (T0 && !$('#sc').classList.contains('on')) $('#tc').textContent = ((t - T0) / 1000).toFixed(2).padStart(5, '0').replace(/^(\d+)\.(\d+)$/, (a, s, c) => `00:${s.padStart(2, '0')}.${c}`);
+            for (const s of SEC) { const r = s.getBoundingClientRect(); if (r.top < vh / 2 && r.bottom >= vh / 2) { if (s.dataset.s !== scene) { scene = s.dataset.s; mix() } break } }
+            vs += ((y - py) - vs) * .15; py = y; $$('.mq').forEach(m => m.style.transform = `rotate(-3deg) skewX(${cl(-vs * .45, -14, 14)}deg)`);
+            $$('.ph').forEach(e => { const r = e.getBoundingClientRect(), p = cl((vh * .92 - r.top) / (vh * .55)); e.style.clipPath = `inset(${(1 - ez(p)) * 100}% 0 0 0)`; e.firstChild.style.transform = `translateY(${(r.top - vh / 2) * -.07}px)` });
+            $$('.rv').forEach(e => { const r = e.getBoundingClientRect(), p = cl((vh * .88 - r.top) / (vh * .38)), w = [...e.children]; w.forEach((s, i) => s.style.opacity = .14 + .86 * cl(p * w.length * 1.2 - i)) });
+            const sp = pr($('#strip')), f1 = $('#f1'), f2 = $('#f2');
+            f1.style.transform = `translateX(${-(f1.offsetWidth - innerWidth + 30) * sp + 15}px) rotate(-3deg)`; f2.style.transform = `translateX(${-(f2.offsetWidth - innerWidth + 30) * (1 - sp) + 15}px) rotate(2.5deg)`;
+            pf += (pr($('#film')) - pf) * .2; const fi = Math.round(pf * (FI.length - 1)); if (fi !== fl) { fl = fi; drawF(fi) }
+            const rd = FRD ? FI.filter(i => i.complete && i.naturalWidth).length / FI.length : 0; $('#ld').style.opacity = rd < .98 ? 1 : 0;
+            $$('#cps p').forEach((p, i) => { const [a, b] = CP[i], u = (pf - a) / (b - a), o = u < 0 || u > 1 ? 0 : Math.min(1, u * 7, (1 - u) * 7); p.style.opacity = o; p.style.transform = `translateY(${(1 - o) * 34}px) scale(${1 + (1 - o) * .16})`; p.style.filter = `blur(${(1 - o) * 12}px)` });
+            $('#fadeblk').style.opacity = ez(cl((pf - .93) / .07));
+            wrapLoop(t, vh);
+            HT = Math.floor(t / 100); if (HI.length) HS.forEach(c => { if (!c.v || c.f === HT % HI.length) return; c.f = HT % HI.length; const x = c.getContext('2d'); x.clearRect(0, 0, c.width, c.height); x.drawImage(HI[c.f], 0, 0) });
+            if (PS.length) cfl();
+            requestAnimationFrame(loop)
+        }
+        addEventListener('resize', () => { fsz(); csz() }); fsz(); requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>
